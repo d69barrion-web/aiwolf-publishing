@@ -1,0 +1,1388 @@
+
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ang Munting Manlalakbay</title>
+
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fff8ed;
+    color: #302b28;
+    line-height: 1.7;
+  }
+
+  header {
+    text-align: center;
+    padding: 24px 16px;
+    background: #244c3b;
+    color: white;
+  }
+
+  header h1 { margin: 0 0 8px; }
+  header p { margin: 0; }
+
+  .player {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #fffdf8;
+    padding: 12px;
+    border-bottom: 1px solid #ddd2c3;
+    box-shadow: 0 2px 8px #00000010;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  button, select {
+    font-size: 15px;
+    padding: 10px 12px;
+    border-radius: 9px;
+    border: 1px solid #c9bdad;
+    background: white;
+    color: #302b28;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:focus-visible, select:focus-visible {
+    outline: 3px solid #d6a34c;
+    outline-offset: 2px;
+  }
+
+  .primary {
+    background: #244c3b;
+    color: white;
+    border-color: #244c3b;
+  }
+
+  .settings {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  #status {
+    text-align: center;
+    font-size: 13px;
+    margin: 6px 0 0;
+    color: #655c51;
+  }
+
+  main {
+    max-width: 760px;
+    margin: auto;
+    padding: 16px;
+  }
+
+  .scene {
+    margin: 20px 0 36px;
+    padding: 18px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 3px 14px #47351b12;
+    scroll-margin-top: 185px;
+    border: 2px solid transparent;
+  }
+
+  .scene.active {
+    border-color: #d6a34c;
+  }
+
+  .scene img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #eee4d5;
+  }
+
+  .scene h2 { color: #244c3b; }
+  .scene p { font-size: 18px; }
+
+  .number {
+    font-size: 13px;
+    color: #776b5e;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 24px;
+    color: #655c51;
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Ang Barangay ng mga Maliliit na Bagay</h1>
+  <p>Isang kuwentong may larawan at tagapagsalaysay</p>
+</header>
+
+<div class="player">
+  <div class="controls">
+    <button id="prev">⏮ Nakaraan</button>
+    <button id="play" class="primary">▶ Simulan</button>
+    <button id="pause">⏸ Pause</button>
+    <button id="stop">⏹ Ihinto</button>
+    <button id="next">Susunod ⏭</button>
+  </div>
+
+  <div class="settings">
+    <label>
+      Boses:
+      <select id="voice">
+        <option value="">Default voice</option>
+      </select>
+    </label>
+
+    <label>
+      Bilis:
+      <select id="rate">
+        <option value="0.75">Mabagal</option>
+        <option value="0.9" selected>Normal</option>
+        <option value="1">Mas mabilis</option>
+      </select>
+    </label>
+  </div>
+
+  <p id="status" aria-live="polite">Handa nang magkuwento.</p>
+</div>
+
+<main>
+
+  <section class="scene active" id="scene-0">
+    <span class="number">Eksena 1</span>
+    <h2>Sa Barangay ng mga Maliliit na Bagay.
+     </h2>
+
+    <img
+      src="images/page1.jpg"
+      alt="Isang batang nakatuklas ng mahiwagang landas sa kagubatan">
+
+    <p class="story">
+      Sa Barangay ng mga Maliliit na Bagay.
+     
+     Sa likod ng bahay, sa pagitan ng bakod at ng hardin, 
+     may barangay na hindi nakikita ng mga tao. 
+     Napakaliit nito, kasinliit ng mga kuwentong dala nito.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-1">
+    <span class="number">Eksena 2</span>
+    <h2></h2>
+
+    <img
+      src="images/page2.jpg"
+      alt="Isang batang nakikipagkita sa isang mabait na lobo">
+
+    <p class="story">
+      Dito nakatira ang mga langgam, bubuyog, at kuhol. 
+     Dito rin nakatira ang mga bagay na naiwan at nakalimutan: 
+     mga tsinelas, kutsara, at saranggola.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-2">
+    <span class="number">Eksena 3</span>
+    <h2></h2>
+
+    <img
+      src="images/page3.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Ang pinuno ng barangay ay si Kapitan Su-so, ang kuhol. 
+     Mabagal siyang kumilos, pero magaling siyang makinig. 
+     “Walang problemang masyadong maliit,” lagi niyang sabi.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-3">
+    <span class="number">Eksena 4</span>
+    <h2></h2>
+
+    <img
+      src="images/page4.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Tuwing umaga, nagpupulong ang lahat sa ilalim ng malaking dahon ng gabi. 
+     May dalang problema ang bawat isa. Halika sumama ka. 
+     Pakinggan natin ang kanilang mga kuwento.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-4">
+    <span class="number">Eksena 5</span>
+    <h2>Ang Tsinelas na Naiwan</h2>
+
+    <img
+      src="images/page5.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+     Unang Kuwento:
+      Ang Tsinelas na Naiwan.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-5">
+    <span class="number">Eksena 6</span>
+    <h2></h2>
+
+    <img
+      src="images/page6.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Isang umaga, may dumating na bagong residente sa barangay. 
+     Isang pulang tsinelas. Mag-isa. Nakahiga ito sa tabi ng bakod. 
+     Ang pangalan niya ay Tsinelas Tomas.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-6">
+    <span class="number">Eksena 7</span>
+    <h2></h2>
+
+    <img
+      src="images/page7.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      “Nasaan ako?” tanong ni Tomas. “Nasaan ang kapares ko?” 
+     Kahapon magkasama pa sila ng batang si Migo. 
+     Pero nakalimutan siya ni Migo sa labas.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-7">
+    <span class="number">Eksena 8</span>
+    <h2></h2>
+
+    <img
+      src="images/page8.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Umupo si Tomas sa ilalim ng malaking dahon, at malungkot ang mukha. 
+     “Wala na akong silbi.” Bulong niya. 
+     “Ano ang tsinelas na isa lang?”
+    </p>
+  </section>
+
+  <section class="scene" id="scene-8">
+    <span class="number">Eksena 9</span>
+    <h2></h2>
+
+    <img
+      src="images/page9.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Lumapit si Kapitan Susô, mabagal pero sigurado. 
+     “Tomas, bakit ka umiiyak?” “Naiwan ako,” sagot ni Tomas. 
+     “At hindi ko alam kung babalikan pa ako.”
+    </p>
+  </section>
+
+  <section class="scene" id="scene-9">
+    <span class="number">Eksena 10</span>
+    <h2></h2>
+
+    <img
+      src="images/page10.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      “Hindi tayo basta-basta iniiwan,” sabi ni Kapitan Susô. 
+     “Minsan, nakakalimot lang ang mga tao. 
+     Pero may paraan para makita ka nila.” “Paano?” tanong ni Tomas.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-10">
+    <span class="number">Eksena 11</span>
+    <h2></h2>
+
+    <img
+      src="images/page11.png"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Tinawag ni Kapitan Susô ang mga langgam. 
+     “Mga kaibigan, tulungan natin si Tomas!” 
+     At sumunod ang buong barangay.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-11">
+    <span class="number">Eksena 12</span>
+    <h2></h2>
+
+    <img
+      src="images/page12.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Binuhat ng mga langgam ang tsinelas papunta sa gitna ng landas. 
+     Nagkumpulan ang mga alitaptap sa paligid, para sumikat ang kulay niya. 
+     Pulang-pula si Tomas, parang bulaklak sa gitna ng damo.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-12">
+    <span class="number">Eksena 13</span>
+    <h2></h2>
+
+    <img
+      src="images/page13.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Kinabukasan, lumabas si Migo para maghanap. 
+     “Nasaan na ba ang isa kong tsinelas?” bulong niya. 
+     At nakita niya ang pulang kulay sa gitna ng landas.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-13">
+    <span class="number">Eksena 14</span>
+    <h2></h2>
+
+    <img
+      src="images/page14.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      “Nandiyan ka pala!” sigaw ni Migo. 
+     Dinampot niya si Tomas, at niyakap pa. 
+     “Pasensya na, hindi na kita iiwan ulit!”
+    </p>
+  </section>
+
+  <section class="scene" id="scene-14">
+    <span class="number">Eksena 15</span>
+    <h2></h2>
+
+    <img
+      src="images/page15.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Bago umalis, sumilip si Tomas sa mga kaibigan niya. 
+     Hindi sila nakikita ni Migo, pero alam ni Tomas na naroon sila. 
+     “Salamat po,” bulong niya.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-15">
+    <span class="number">Eksena 16</span>
+    <h2></h2>
+
+    <img
+      src="images/page16.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Kinagabihan, magkasama na ulit ang magkapares na tsinelas. 
+     Nakahanay sila sa tabi ng pinto, mainit at ligtas. 
+     At natutunan ni Tomas na laging may paraan para makauwi.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-16">
+    <span class="number">Eksena 17</span>
+    <h2></h2>
+
+    <img
+      src="images/page17.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Sa barangay, kumaway si Kapitan Susô nang marahan. 
+     “Mabuti at nakauwi ka na,” bulong niya, at ngumiti. 
+     Tapos na ang unang pulong sa ilalim ng dahon ng gabi.
+    </p>
+  </section>
+
+ <section class="scene" id="scene-17">
+    <span class="number">SIMULA</span>
+    <h2></h2>
+
+    <img
+      src="images/page18.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Tunghayan naman natin ngayon ang ikalawang kuwento:
+     "Ang Langgam na Ayaw Magbahagi"
+    </p>
+ </section>
+
+  <section class="scene" id="scene-18">
+    <span class="number">Eksena 1</span>
+    <h2></h2>
+
+    <img
+      src="images/page19.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Sa barangay, may langgam na nagngangalang Lando. 
+     Pinakamasipag siya sa lahat, lagi siyang may buhat-buhat na pagkain. 
+     Pero may isang problema: napakadamot niya.
+    </p>
+  </section>
+
+ <section class="scene" id="scene-19">
+    <span class="number">Eksena 2</span>
+    <h2></h2>
+
+    <img
+      src="images/page20.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Isang araw, nakakita si Lando ng malaking piraso ng tinapay. 
+     “Wow! Akin ito!” sigaw niya. Binuhat niya ang buong tinapay, 
+     kahit mabigat.
+    </p>
+ </section>
+
+  <section class="scene" id="scene-20">
+    <span class="number">Eksena 3</span>
+    <h2></h2>
+
+    <img
+      src="images/page21.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      “Lando, puwede bang makahingi nang kaunti?” tanong ng kaibigan niyang si Lita. 
+     “Hindi! Akin lahat ito!” sagot ni Lando. 
+     Malungkot na umalis si Lita.
+    </p>
+</section>
+
+ <section class="scene" id="scene-21">
+    <span class="number">Eksena 4</span>
+    <h2></h2>
+
+    <img
+      src="images/page22.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Dumaan ang bubuyog na si Buboy, gutom na gutom. 
+     “Lando, kahit kapirasong mumo lang?” 
+     “Hindi puwede! Akin ito!” sabi ni Lando.
+    </p>
+ </section>
+
+  <section class="scene" id="scene-22">
+    <span class="number">Eksena 5</span>
+    <h2></h2>
+
+    <img
+      src="images/page23.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Dinala ni Lando ang tinapay sa kaniyang lungga. 
+     Pero napakalaki ng tinapay, hindi ito magkasya sa pinto. 
+     Itinabi na lang niya sa labas, at binantayan niya.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-23">
+    <span class="number">Eksena 6</span>
+    <h2></h2>
+
+    <img
+      src="images/page24.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Biglang dumilim ang langit. Kumulog. Pak! Pak! Pak! 
+     Nagsimulang bumuhos ang ulan. “Naku!” sigaw ni Lando.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-24">
+    <span class="number">Eksena 7</span>
+    <h2></h2>
+
+    <img
+      src="images/page25.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Nabasa ang tinapay, naging malambot at malagkit. 
+     Pilit itong binuhat ni Lando, pero bumigay ito at nagkapira-piraso. 
+     Tinangay ng agos ng ulan ang mga piraso.
+    </p>
+  </section>
+
+  <section class="scene" id="scene-25">
+    <span class="number">Eksena 8</span>
+    <h2></h2>
+
+    <img
+      src="images/page26.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Basang-basa si Lando, nakaupo sa putik, at walang natira. 
+     “Wala na akong tinapay,” iyak niya. 
+     “At wala pa akong kaibigan.”
+    </p>
+  </section>
+
+  <section class="scene" id="scene-26">
+    <span class="number">Eksena 9</span>
+    <h2></h2>
+
+    <img
+      src="images/page27.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Hindi nagtagal, may nagbuhat sa kaniya mula sa putik. 
+     Si Lita iyon, kasama si Buboy at ang iba pang kaibigan. 
+     “Halika, Lando. Giniginaw ka.”
+    </p>
+  </section>
+
+  <section class="scene" id="scene-27">
+    <span class="number">Eksena 10</span>
+    <h2></h2>
+
+    <img
+      src="images/page28.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Dinala nila si Lando sa lungga ni Lita. 
+     May mainit na tsaa at kapirasong mumo para sa lahat. 
+     “Heto, kain ka,” sabi ni Lita, at ibinahagi ang pagkain niya.
+    </p>
+  </section>
+
+   <section class="scene" id="scene-28">
+    <span class="number">Eksena 11</span>
+    <h2></h2>
+
+    <img
+      src="images/page29.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Napaiyak si Lando. “Bakit ninyo ako tinulungan?” 
+     “Kasi kaibigan ka namin,” sabi ni Buboy. 
+     At doon naintindihan ni Lando kung ano ang tunay na yaman.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-29">
+    <span class="number">Eksena 12</span>
+    <h2></h2>
+
+    <img
+      src="images/page30.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Mula noon, nagbabahagi na si Lando. 
+     Kapag may nakitang pagkain, tinatawag niya ang lahat. 
+     At laging mas masarap ang pagkain kapag magkakasama.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-30">
+    <span class="number">SIMULA</span>
+    <h2></h2>
+
+    <img
+      src="images/page31.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      At narito naman ngayon ang ikatlong kuwento:
+     "Ang Sirang Saranggola"
+    </p>
+   </section>
+
+   <section class="scene" id="scene-31">
+    <span class="number">Eksena 1</span>
+    <h2></h2>
+
+    <img
+      src="images/page32.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Sa gilid ng barangay, may nakasabit na saranggola sa sanga ng kalamansi. 
+     Dilaw ang kulay niya, pero may punit sa gitna. 
+     Ang pangalan niya ay Saranggola Sarah.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-32">
+    <span class="number">Eksena 2</span>
+    <h2></h2>
+
+    <img
+      src="images/page33.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Dati, lumilipad si Sarah sa mga ulap, mataas na mataas. 
+     Kasama niya ang batang si Migo tuwing hapon. 
+     Pero isang malakas na hangin ang pumunit sa kaniya at ibinagsak siya sa puno.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-33">
+    <span class="number">Eksena 3</span>
+    <h2></h2>
+
+    <img
+      src="images/page34.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      “Hindi na ako makakalipad,” bulong ni Sarah. 
+     “Sira na ako. Wala nang magmamahal sa akin.
+     ”Tahimik siyang umiyak sa sanga.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-34">
+    <span class="number">Eksena 4</span>
+    <h2></h2>
+
+    <img
+      src="images/page35.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Narinig siya ni Bubuyog Buboy na dumaan. 
+     “Sarah, bakit ka umiiyak?” 
+     “Hindi na ako makakalipad,” sagot ni Sarah.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-35">
+    <span class="number">Eksena 5</span>
+    <h2></h2>
+
+    <img
+      src="images/page36.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Tumakbo si Buboy kay Kapitan Susô. 
+     “Kapitan! May saranggolang sira, kailangan niya ng tulong!” 
+     Tumango si Kapitan Susô. “Tipunin natin ang lahat.”
+    </p>
+   </section>
+
+   <section class="scene" id="scene-36">
+    <span class="number">Eksena 6</span>
+    <h2></h2>
+
+    <img
+      src="images/page37.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Nagtipon ang buong barangay sa ilalim ng puno. 
+     “Sino ang may kayang magtahi?” tanong ni Kapitan Susô. 
+     “Ako po!” sagot ni Gagamba Gina, at ibinaba niya ang kaniyang sinulid.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-37">
+    <span class="number">Eksena 7</span>
+    <h2></h2>
+
+    <img
+      src="images/page38.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Lumipad si Gina papunta sa punit at hinabi ang malalakas na hibla. 
+     Dinala naman ng mga langgam ang maliliit na piraso ng papel. 
+     At inilatag ni Buboy ang mga dahon bilang pantapal.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-38">
+    <span class="number">Eksena 8</span>
+    <h2></h2>
+
+    <img
+      src="images/page39.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Habang nagtatrabaho sila, nagkukuwentuhan at nagtatawanan ang lahat. 
+     Walang nagmamadali. Walang nagrereklamo. 
+     Dahan-dahang nabuo ang punit, sinulid sa sinulid.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-39">
+    <span class="number">Eksena 9</span>
+    <h2></h2>
+
+    <img
+      src="images/page40.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Pagsapit ng hapon, tapos na ang trabaho. 
+     May mga tagpi na ang saranggola, iba-iba ang kulay. 
+     Pero sa mata ni Sarah, mas maganda pa ito kaysa dati.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-40">
+    <span class="number">Eksena 10</span>
+    <h2></h2>
+
+    <img
+      src="images/page41.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Kinabukasan, nakita ni Migo si Sarah sa puno. 
+     “Ang saranggola ko! May tagpi na siya!” 
+     Maingat niyang inalis si Sarah mula sa sanga.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-41">
+    <span class="number">Eksena 11</span>
+    <h2></h2>
+
+    <img
+      src="images/page42.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Tumakbo si Migo sa bukid, at pinalipad si Sarah. 
+     Hu-hu-hu! Sumipol ang hangin. Tumaas at tumaas ang saranggola. 
+     Mas mataas pa kaysa dati, at kumikislap ang mga tagpi sa araw.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-42">
+    <span class="number">Eksena 12</span>
+    <h2></h2>
+
+    <img
+      src="images/page43.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Mula sa ibaba, kumaway ang mga taga-barangay. 
+     “Nakita ninyo? Lumilipad na si Sarah!” sigaw ni Buboy. 
+     At nakangiti si Sarah, dahil alam niyang mahal siya ng mga kaibigan niya.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-43">
+    <span class="number">SIMULA</span>
+    <h2></h2>
+
+    <img
+      src="images/page44.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      IKAAPAT NA KUWENTO:"Ang Kutsarang Nahulog sa Lupa"
+    </p>
+   </section>
+
+   <section class="scene" id="scene-44">
+    <span class="number">Eksena 1</span>
+    <h2></h2>
+
+    <img
+      src="images/page45.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Isang tanghali, may bumagsak sa damuhan ng barangay. 
+     Kling! Isang makintab na kutsara. 
+     Ang pangalan niya ay Kutsarang Kiko.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-45">
+    <span class="number">Eksena 2</span>
+    <h2></h2>
+
+    <img
+      src="images/page46.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Galing si Kiko sa kusina ng bahay. 
+     Nahulog siya sa bintana habang naghuhugas ng pinggan ang nanay ni Migo. 
+     At walang nakapansin na wala na siya.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-46">
+    <span class="number">Eksena 3</span>
+    <h2></h2>
+
+    <img
+      src="images/page47.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      “Nasaan ako?” tanong ni Kiko, at luminga-linga. 
+     Wala siyang nakitang sabaw. 
+     Wala siyang nakitang kanin. 
+     “Para saan pa ako dito? Ang trabaho ko ay magsandok.”
+    </p>
+   </section>
+
+   <section class="scene" id="scene-47">
+    <span class="number">Eksena 4</span>
+    <h2></h2>
+
+    <img
+      src="images/page48.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Nakahiga si Kiko sa damuhan, malungkot at tahimik. 
+     “Wala na akong silbi sa lupa,” bulong niya. 
+     “Ang kutsara ay para sa kusina lang.”
+    </p>
+   </section>
+
+   <section class="scene" id="scene-48">
+    <span class="number">Eksena 5</span>
+    <h2></h2>
+
+    <img
+      src="images/page49.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Lumapit sina Langgam Lita at Bubuyog Buboy. 
+     “Kiko, ang kintab mo!” sabi ni Lita. 
+     “Pero para saan ka ba talaga?” tanong ni Buboy.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-49">
+    <span class="number">Eksena 6</span>
+    <h2></h2>
+
+    <img
+      src="images/page50.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      “Para magsandok ng sabaw,” sagot ni Kiko. 
+     “Sabaw? Wala kaming sabaw dito,” sabi ni Lita. 
+     “Pero marami kaming ibang kailangan,” dagdag ni Buboy.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-50">
+    <span class="number">Eksena 7</span>
+    <h2></h2>
+
+    <img
+      src="images/page51.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Dumating si Kapitan Susô na may dalang maliit na tasa ng tubig. 
+     “Kiko, subukan mong gamitin ang katawan mo sa ibang paraan.” 
+     Napaisip si Kiko.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-51">
+    <span class="number">Eksena 8</span>
+    <h2></h2>
+
+    <img
+      src="images/page52.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Binaligtad ni Kiko ang sarili, at naging parang maliit na bangka. 
+     Isinakay niya ang tatlong langgam, at tumawid sila sa isang malaking sapa. 
+     “Wow! Ang galing!” sigaw nila.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-52">
+    <span class="number">Eksena 9</span>
+    <h2></h2>
+
+    <img
+      src="images/page53.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Pagkatapos, ginamit siya ng mga bubuyog para magsalok ng nektar. 
+     Ginamit din siya ng mga kuhol bilang pahingahan sa init ng araw. 
+     Napakaraming gamit niya, na hindi niya alam noon.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-53">
+    <span class="number">Eksena 10</span>
+    <h2></h2>
+
+    <img
+      src="images/page54.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      “Kiko, napakahalaga mo pala,” sabi ni Lita. 
+     “Hindi lang sa kusina, kundi sa bawat lugar.
+     ”Napangiti si Kiko, at kumislap pa ang katawan niya.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-54">
+    <span class="number">Eksena 11</span>
+    <h2></h2>
+
+    <img
+      src="images/page55.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Kinagabihan, bumalik ang nanay ni Migo para hanapin ang kutsara. 
+     Nakita niya itong kumikislap sa damuhan, at pinulot niya ito. 
+     “Nandito ka pala!” sabi niya, at dinala siya pauwi.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-55">
+    <span class="number">Eksena 12</span>
+    <h2></h2>
+
+    <img
+      src="images/page56.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Sa kusina, nakahanay si Kiko kasama ang iba pang kubyertos. 
+     Pero iba na ang kaniyang pakiramdam. 
+     Alam na niyang may silbi siya saan man mapunta.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-56">
+    <span class="number">SIMULA</span>
+    <h2></h2>
+
+    <img
+      src="images/page57.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      At ngayon ay ang ating panghuling kuwento:
+     "Ang Bubuyog na Laging Nagmamadali"
+    </p>
+   </section>
+
+   <section class="scene" id="scene-57">
+    <span class="number">Eksena 1</span>
+    <h2></h2>
+
+    <img
+      src="images/page58.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Sa barangay, may bubuyog na nagngangalang Buboy. 
+     Pinakamabilis siyang lumipad sa lahat. 
+     Zzzoom! Zzzoom! Laging may hinahabol.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-58">
+    <span class="number">Eksena 2</span>
+    <h2></h2>
+
+    <img
+      src="images/page59.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      “Hindi ako puwedeng magtagal!” sabi niya tuwing umaga. 
+     “Maraming kailangang gawin! Kailangang matapos agad!” 
+     At lilipad na naman siya, mabilis na mabilis.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-59">
+    <span class="number">Eksena 3</span>
+    <h2></h2>
+
+    <img
+      src="images/page60.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Sa sobrang bilis, wala siyang napapansin. 
+     Hindi niya nakikita ang hamog sa mga dahon. 
+     Hindi niya naririnig ang awit ng mga kuliglig.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-60">
+    <span class="number">Eksena 4</span>
+    <h2></h2>
+
+    <img
+      src="images/page61.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Isang umaga, tinawag siya ni Langgam Lita. 
+     “Buboy, tingnan mo! Ang ganda ng sikat ng araw!” 
+     “Wala akong oras!” sagot ni Buboy, at lumipad na.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-61">
+    <span class="number">Eksena 5</span>
+    <h2></h2>
+
+    <img
+      src="images/page62.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Dumaan siya sa hardin, at nilampasan ang mga bulaklak. 
+     Pula, dilaw, at lila, pero hindi niya tiningnan. 
+     “Mamaya na!” sabi niya, kahit hindi niya alam kung kailan iyon.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-62">
+    <span class="number">Eksena 6</span>
+    <h2></h2>
+
+    <img
+      src="images/page63.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Biglang may nakita siyang bagay sa gilid ng mata niya. 
+     Isang munting bulaklak na kulay rosas, nakatago sa likod ng bato. 
+     Muntik na niya itong malampasan.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-63">
+    <span class="number">Eksena 7</span>
+    <h2></h2>
+
+    <img
+      src="images/page64.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Huminto si Buboy. Zzzt! Ang bilis ng preno niya. 
+     Dahan-dahan siyang lumapit sa bulaklak. 
+     Mabango. Malambot. Parang bulong ng umaga.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-64">
+    <span class="number">Eksena 8</span>
+    <h2></h2>
+
+    <img
+      src="images/page65.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      “Matagal na pala akong dumadaan dito,” bulong ni Buboy. 
+     “Pero ngayon lang kita nakita.” 
+     “Ilang bulaklak pa kaya ang nalampasan ko?”
+    </p>
+   </section>
+
+   <section class="scene" id="scene-65">
+    <span class="number">Eksena 9</span>
+    <h2></h2>
+
+    <img
+      src="images/page66.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Umupo siya sa gilid ng bulaklak at humigop ng nektar. 
+     Napakatamis. Napakasarap. Doon niya naramdaman kung gaano siya pagod.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-66">
+    <span class="number">Eksena 10</span>
+    <h2></h2>
+
+    <img
+      src="images/page67.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Lumapit si Kapitan Susô, mabagal at sigurado. 
+     “Buboy, minsan ang pinakamagandang bagay,” 
+     “ay nakikita lang kapag dahan-dahan ka.”
+    </p>
+   </section>
+
+   <section class="scene" id="scene-67">
+    <span class="number">Eksena 11</span>
+    <h2></h2>
+
+    <img
+      src="images/page68.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Mula noon, natutunan ni Buboy na huminto at tumingin. 
+     Nakita niya ang hamog, narinig ang mga kuliglig, at nilasap ang araw. 
+     Mas masaya pala ang buhay kapag hindi laging nagmamadali.
+    </p>
+   </section>
+
+   <section class="scene" id="scene-68">
+    <span class="number">Eksena 12</span>
+    <h2></h2>
+
+    <img
+      src="images/page69.jpg"
+      alt="Isang bata at lobo na nag-uusap sa ilalim ng malaking puno">
+
+    <p class="story">
+      Sa barangay, nagtipon ang lahat sa ilalim ng dahon ng gabi. 
+     “Tapos na ang mga kuwento namin ngayon,” bulong ni Kapitan Susô. 
+     “Hanggang sa susunod, mga kaibigan.”
+
+     Maraming salamat sa pakikinig!
+    </p>
+   </section>
+ 
+</main>
+
+<footer>
+  Wakas ng kuwento. Maraming salamat sa pakikinig!
+</footer>
+
+<script>
+(() => {
+  const synth = window.speechSynthesis;
+
+  const scenes = [...document.querySelectorAll(".scene")];
+  const voiceSelect = document.getElementById("voice");
+  const rateSelect = document.getElementById("rate");
+  const status = document.getElementById("status");
+
+  let current = 0;
+  let voices = [];
+  let playing = false;
+  let paused = false;
+  let runId = 0;
+
+  function loadVoices() {
+    const previous = voiceSelect.value;
+
+    voices = synth.getVoices();
+
+    voiceSelect.innerHTML =
+      '<option value="">Default voice</option>';
+
+    voices.forEach((voice, index) => {
+      const option = document.createElement("option");
+      option.value = index;
+      option.textContent = `${voice.name} (${voice.lang})`;
+      voiceSelect.appendChild(option);
+    });
+
+    if (voices[previous]) {
+      voiceSelect.value = previous;
+    }
+  }
+
+  if ("onvoiceschanged" in synth) {
+    synth.onvoiceschanged = loadVoices;
+  }
+
+  loadVoices();
+
+  function getStory(index) {
+    return scenes[index].querySelector(".story").textContent
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function showScene(index) {
+    current = Math.max(0, Math.min(index, scenes.length - 1));
+
+    scenes.forEach((scene, i) => {
+      scene.classList.toggle("active", i === current);
+    });
+
+    scenes[current].scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+    status.textContent =
+      `Eksena ${current + 1} sa ${scenes.length}`;
+  }
+
+  function speakScene() {
+    if (!("speechSynthesis" in window)) {
+      status.textContent =
+        "Hindi suportado ng browser ang voice narration.";
+      return;
+    }
+
+    synth.cancel();
+
+    const myRun = ++runId;
+    playing = true;
+    paused = false;
+
+    showScene(current);
+    status.textContent =
+      `Binabasa ang pahina ${current + 1}...`;
+
+    const utterance = new SpeechSynthesisUtterance(
+      getStory(current)
+    );
+
+    utterance.lang = "fil-PH";
+    utterance.rate = Number(rateSelect.value);
+
+    const selectedVoice = voiceSelect.value;
+
+    if (selectedVoice !== "" && voices[selectedVoice]) {
+      utterance.voice = voices[selectedVoice];
+      utterance.lang = voices[selectedVoice].lang;
+    }
+
+    utterance.onend = () => {
+      if (myRun !== runId || !playing) return;
+
+      if (current < scenes.length - 1) {
+        current++;
+        speakScene();
+      } else {
+        playing = false;
+        paused = false;
+        status.textContent = "Tapos na ang kuwento!";
+      }
+    };
+
+    utterance.onerror = (event) => {
+      if (myRun !== runId) return;
+
+      if (event.error !== "canceled" &&
+          event.error !== "interrupted") {
+        playing = false;
+        status.textContent =
+          "Hindi natuloy ang narration. Subukang muli.";
+      }
+    };
+
+    synth.speak(utterance);
+  }
+
+  function stopStory() {
+    runId++;
+    playing = false;
+    paused = false;
+    synth.cancel();
+    status.textContent = "Huminto ang narration.";
+  }
+
+  document.getElementById("play").onclick = () => {
+    if (paused && synth.paused) {
+      synth.resume();
+      paused = false;
+      playing = true;
+      status.textContent = "Nagpapatuloy ang kuwento...";
+    } else {
+      speakScene();
+    }
+  };
+
+  document.getElementById("pause").onclick = () => {
+    if (playing && !paused) {
+      synth.pause();
+      paused = true;
+      status.textContent = "Naka-pause ang kuwento.";
+    }
+  };
+
+  document.getElementById("stop").onclick = stopStory;
+
+  document.getElementById("next").onclick = () => {
+    stopStory();
+
+    if (current < scenes.length - 1) {
+      current++;
+      showScene(current);
+    } else {
+      status.textContent = "Nasa huling eksena ka na.";
+    }
+  };
+
+  document.getElementById("prev").onclick = () => {
+    stopStory();
+
+    if (current > 0) {
+      current--;
+      showScene(current);
+    } else {
+      showScene(0);
+    }
+  };
+})();
+</script>
+
+</body>
+</html>
