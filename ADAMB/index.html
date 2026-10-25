@@ -1,0 +1,548 @@
+
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ang Duwende ay may Buntot?!?</title>
+
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fff8ed;
+    color: #302b28;
+    line-height: 1.7;
+  }
+
+  header {
+    text-align: center;
+    padding: 24px 16px;
+    background: #244c3b;
+    color: white;
+  }
+
+  header h1 { margin: 0 0 8px; }
+  header p { margin: 0; }
+
+  .player {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #fffdf8;
+    padding: 12px;
+    border-bottom: 1px solid #ddd2c3;
+    box-shadow: 0 2px 8px #00000010;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  button, select {
+    font-size: 15px;
+    padding: 10px 12px;
+    border-radius: 9px;
+    border: 1px solid #c9bdad;
+    background: white;
+    color: #302b28;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:focus-visible, select:focus-visible {
+    outline: 3px solid #d6a34c;
+    outline-offset: 2px;
+  }
+
+  .primary {
+    background: #244c3b;
+    color: white;
+    border-color: #244c3b;
+  }
+
+  .settings {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+  }
+
+  #status {
+    text-align: center;
+    font-size: 13px;
+    margin: 6px 0 0;
+    color: #655c51;
+  }
+
+  main {
+    max-width: 760px;
+    margin: auto;
+    padding: 16px;
+  }
+
+  .scene {
+    margin: 20px 0 36px;
+    padding: 18px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 3px 14px #47351b12;
+    scroll-margin-top: 185px;
+    border: 2px solid transparent;
+  }
+
+  .scene.active {
+    border-color: #d6a34c;
+  }
+
+  .scene img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #eee4d5;
+  }
+
+  .scene h2 { color: #244c3b; }
+  .scene p { font-size: 18px; }
+
+  .number {
+    font-size: 13px;
+    color: #776b5e;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 24px;
+    color: #655c51;
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Ang Duwende ay may Buntot?!?</h1>
+  <p>Isang kuwentong may larawan at tagapagsalaysay</p>
+</header>
+
+<div class="player">
+  <div class="controls">
+    <button id="prev">⏮ Nakaraan</button>
+    <button id="play" class="primary">▶ Simulan</button>
+    <button id="pause">⏸ Pause</button>
+    <button id="stop">⏹ Ihinto</button>
+    <button id="next">Susunod ⏭</button>
+  </div>
+
+  <div class="settings">
+    <label>
+      Boses:
+      <select id="voice">
+        <option value="">Default voice</option>
+      </select>
+    </label>
+
+    <label>
+      Bilis:
+      <select id="rate">
+        <option value="0.75">Mabagal</option>
+        <option value="0.9" selected>Normal</option>
+        <option value="1">Mas mabilis</option>
+      </select>
+    </label>
+  </div>
+
+  <p id="status" aria-live="polite">Handa nang magkuwento.</p>
+</div>
+
+<main>
+
+  <section class="scene active" id="scene-0">
+    <span class="number">Eksena 1</span>
+    <h2>Ang Duwende ay may Buntot?!?
+     </h2>
+
+    <img
+      src="images/page1.jpg"
+      alt="image1">
+
+    <p class="story">
+      Ang Duwende ay may Buntot?!?
+     
+     Napasigaw si Boying at nagtago sa 
+      likod ni Angel.
+      Sa pintuan ng kamalig, may 
+      nakatayong maliit na tuta. Kulay 
+      kape, maputik ang mga paa, at 
+      ang buntot ay hindi mapakali sa 
+      kakawag. Tumahol ito nang isa pa, 
+      parang nagrereklamo na pumasok 
+      ang mga bisita sa bahay niya.
+      Itinutok ni Angel ang flashlight 
+      sa kanya. "Apat ang paa. May 
+      buntot. Tumatahol."
+      "Hindi siya duwende?" mahinang 
+      tanong ni Migo.
+      "Sa ngayon, tuta," sabi ni Angel.
+    </p>
+  </section>
+
+  <section class="scene active" id="scene-1">
+    <span class="number">Eksena 2</span>
+    <h2>
+     </h2>
+
+    <img
+      src="images/page2.jpg"
+      alt="image2">
+
+    <p class="story">
+      Tumakbo ang tuta papunta sa 
+      tambak, humiga sa ibabaw ng 
+      tsinelas ni Migo, at tumingin 
+      sa kanila na parang sinasabing 
+      akin ito.
+      Napatawa nang malakas si Boying. 
+      "Duwende pala, ha."
+    </p>
+  </section>
+
+  <section class="scene active" id="scene-2">
+    <span class="number">Eksena 3</span>
+    <h2>
+     </h2>
+
+    <img
+      src="images/page3.jpg"
+      alt="image3">
+
+    <p class="story">
+      Kinaumagahan, bumalik sila sa 
+      bakuran, sa tabi ng sampayan.
+      "May isa pa tayong tanong," 
+      sabi ni Angel. "Saan galing ang 
+      butones?"
+      Itinaas niya ang butones sa harap 
+      ng polo ni Migo na nakasampay. 
+      Kulay asul ito, apat ang butas, 
+      at may puting sinulid. Sa laylayan 
+      ng polo, may isang butones na wala.
+      Magkapareho ang butones at ang 
+      mga natira.
+      "Sa polo ko 'yan!" sigaw ni Migo.
+      "At mababa ang pasimano mo," 
+      sabi ni Angel, "kaya abot ng 
+      tuta ang bibingka."
+    </p>
+  </section>
+
+  <section class="scene active" id="scene-3">
+    <span class="number">Eksena 4</span>
+    <h2>
+     </h2>
+
+    <img
+      src="images/page4.jpg"
+      alt="image4">
+
+    <p class="story">
+      Napaupo si Migo sa damuhan. 
+      "Kung hindi tayo nagtanong, 
+      duwende pa rin sana ang sagot."
+     "Oo," sabi ni Angel. "At hindi mo 
+      pa rin makukuha ang tsinelas mo."
+    </p>
+  </section>
+
+  <section class="scene active" id="scene-4">
+    <span class="number">Eksena 5</span>
+    <h2>
+     </h2>
+
+    <img
+      src="images/page5.jpg"
+      alt="image5">
+
+    <p class="story">
+      Pumasok si Migo sa kusina at 
+      ikinuwento ang lahat kay Lola, 
+      mula sa bakas hanggang sa tuta.
+      Tahimik na nakinig si Lola Iska. 
+      Pagkatapos, tumawa siya nang 
+      malakas.
+     "Kung ganoon, kailangan kong 
+      humingi ng tawad sa duwende," 
+      sabi niya, "dahil mukhang hindi 
+      siya ang may gawa."
+      Napangiti si Migo. 
+      "Pasensya na po, Lola. Sinabi ko 
+      pa ata kay Aling Sinta kaninang 
+      umaga na may duwende tayo."
+      Nawala ang ngiti ni Lola.
+    </p>
+  </section>
+
+  <section class="scene active" id="scene-5">
+    <span class="number">Eksena 6</span>
+    <h2>
+     </h2>
+
+    <img
+      src="images/page6.jpg"
+      alt="image6">
+
+    <p class="story">
+      Biglang bumukas ang pinto. "Migo!" 
+      sigaw ni Boying, hingal na hingal. 
+      "May mga tao sa labas!"
+    </p>
+  </section>
+
+  <section class="scene active" id="scene-6">
+    <span class="number">Eksena 7</span>
+    <h2>
+     </h2>
+
+    <img
+      src="images/page7.jpg"
+      alt="image7">
+
+    <p class="story">
+      Sa harap ng gate, may mga 
+      kapitbahay na may hawak na 
+      kandila, kanin, at maliliit 
+      na platito. May isang matandang 
+      nagsasabi ng tabi-tabi po habang 
+      yumuyuko sa punso.
+      At sa gilid, nakatayo si Aling 
+      Sinta sa harap ng isang mesa na 
+      puno ng maliliit na bote. 
+      "Pangontra sa duwende, bente 
+      pesos lang!" sigaw niya. 
+      "Sabi ni Migo, may duwende raw sa 
+      bahay nila!"
+      Nanlamig ang mukha ni Migo. 
+      "Hindi... sinabi ko lang..."
+    </p>
+  </section>
+
+  <section class="scene active" id="scene-7">
+    <span class="number">Eksena 8</span>
+    <h2>
+     </h2>
+
+    <img
+      src="images/page8.jpg"
+      alt="image8">
+
+    <p class="story">
+      Sa dulo ng kalsada, huminto ang 
+      isang traysikel. Bumaba ang isang 
+      binatilyo na may maleta at malaking 
+      ngiti. Tumingin siya sa mga tao, 
+      sa mesa ni Aling Sinta, at sa mga 
+      bote.
+      Dahan-dahan niyang inilabas ang 
+      cellphone niya at kinunan ng 
+      litrato ang lahat.
+      "Uy," sabi niya, "ano'ng meron 
+      dito?"
+    </p>
+  </section>
+ 
+</main>
+
+<footer>
+  Wakas ng kuwento. Maraming salamat sa pakikinig!
+</footer>
+
+<script>
+(() => {
+  const synth = window.speechSynthesis;
+
+  const scenes = [...document.querySelectorAll(".scene")];
+  const voiceSelect = document.getElementById("voice");
+  const rateSelect = document.getElementById("rate");
+  const status = document.getElementById("status");
+
+  let current = 0;
+  let voices = [];
+  let playing = false;
+  let paused = false;
+  let runId = 0;
+
+  function loadVoices() {
+    const previous = voiceSelect.value;
+
+    voices = synth.getVoices();
+
+    voiceSelect.innerHTML =
+      '<option value="">Default voice</option>';
+
+    voices.forEach((voice, index) => {
+      const option = document.createElement("option");
+      option.value = index;
+      option.textContent = `${voice.name} (${voice.lang})`;
+      voiceSelect.appendChild(option);
+    });
+
+    if (voices[previous]) {
+      voiceSelect.value = previous;
+    }
+  }
+
+  if ("onvoiceschanged" in synth) {
+    synth.onvoiceschanged = loadVoices;
+  }
+
+  loadVoices();
+
+  function getStory(index) {
+    return scenes[index].querySelector(".story").textContent
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function showScene(index) {
+    current = Math.max(0, Math.min(index, scenes.length - 1));
+
+    scenes.forEach((scene, i) => {
+      scene.classList.toggle("active", i === current);
+    });
+
+    scenes[current].scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+    status.textContent =
+      `Eksena ${current + 1} sa ${scenes.length}`;
+  }
+
+  function speakScene() {
+    if (!("speechSynthesis" in window)) {
+      status.textContent =
+        "Hindi suportado ng browser ang voice narration.";
+      return;
+    }
+
+    synth.cancel();
+
+    const myRun = ++runId;
+    playing = true;
+    paused = false;
+
+    showScene(current);
+    status.textContent =
+      `Binabasa ang pahina ${current + 1}...`;
+
+    const utterance = new SpeechSynthesisUtterance(
+      getStory(current)
+    );
+
+    utterance.lang = "fil-PH";
+    utterance.rate = Number(rateSelect.value);
+
+    const selectedVoice = voiceSelect.value;
+
+    if (selectedVoice !== "" && voices[selectedVoice]) {
+      utterance.voice = voices[selectedVoice];
+      utterance.lang = voices[selectedVoice].lang;
+    }
+
+    utterance.onend = () => {
+      if (myRun !== runId || !playing) return;
+
+      if (current < scenes.length - 1) {
+        current++;
+        speakScene();
+      } else {
+        playing = false;
+        paused = false;
+        status.textContent = "Tapos na ang kuwento!";
+      }
+    };
+
+    utterance.onerror = (event) => {
+      if (myRun !== runId) return;
+
+      if (event.error !== "canceled" &&
+          event.error !== "interrupted") {
+        playing = false;
+        status.textContent =
+          "Hindi natuloy ang narration. Subukang muli.";
+      }
+    };
+
+    synth.speak(utterance);
+  }
+
+  function stopStory() {
+    runId++;
+    playing = false;
+    paused = false;
+    synth.cancel();
+    status.textContent = "Huminto ang narration.";
+  }
+
+  document.getElementById("play").onclick = () => {
+    if (paused && synth.paused) {
+      synth.resume();
+      paused = false;
+      playing = true;
+      status.textContent = "Nagpapatuloy ang kuwento...";
+    } else {
+      speakScene();
+    }
+  };
+
+  document.getElementById("pause").onclick = () => {
+    if (playing && !paused) {
+      synth.pause();
+      paused = true;
+      status.textContent = "Naka-pause ang kuwento.";
+    }
+  };
+
+  document.getElementById("stop").onclick = stopStory;
+
+  document.getElementById("next").onclick = () => {
+    stopStory();
+
+    if (current < scenes.length - 1) {
+      current++;
+      showScene(current);
+    } else {
+      status.textContent = "Nasa huling eksena ka na.";
+    }
+  };
+
+  document.getElementById("prev").onclick = () => {
+    stopStory();
+
+    if (current > 0) {
+      current--;
+      showScene(current);
+    } else {
+      showScene(0);
+    }
+  };
+})();
+</script>
+
+</body>
+</html>
